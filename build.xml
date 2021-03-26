@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<project name="tank-game" default="compile" basedir=".">
+    <property name="project.name" value="tank-game"/>
+    <property name="jar.name" value="${project.name}.jar"/>
+
+    <!-- 一般Jar包的依赖 -->
+    <path id="compile.common.lib">
+        <fileset dir="./lib" erroronmissingdir="false">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <property name="compile.version" value="1.8"/>
+    <property name="compile.encoding" value="UTF-8"/>
+    <property name="compile.classpath" refid="compile.common.lib"/>
+
+    <property name="project.src.dir" value="./src/main"/>
+    <property name="project.bin.dir" value="./bin"/>
+
+    <!-- 一.编译 -->
+    <target name="compile">
+        <!-- 0.创建bin目录-->
+        <mkdir dir="${project.bin.dir}" />
+
+        <!-- 1.编译 -->
+        <javac includeAntRuntime="false" source="${compile.version}" target="${compile.version}"
+               encoding="${compile.encoding}" classpath="${compile.classpath}"
+               srcdir="${project.src.dir}" destdir="${project.bin.dir}" debug="true" debuglevel="lines,vars,source">
+            <compilerarg value="-Xlint:unchecked"/>
+        </javac>
+
+        <!-- 2.处理非Java文件 -->
+        <first id="first.dir">
+            <path>
+                <pathelement path="${project.src.dir}/resources"/>
+            </path>
+        </first>
+        <copy todir="${project.bin.dir}">
+            <fileset dir="${project.src.dir}/resources">
+                <exclude name="**/*.java"></exclude>
+            </fileset>
+        </copy>
+    </target>
+    <target name="run" depends="compile" description="run main">
+        <java classpath="${project.bin.dir}" classname="com.hyzcoding.tankGame.Main"></java>
+    </target>
+    <!-- 二.打包 -->
+    <target name="package">
+        <jar destfile="${jar.name}" basedir="${project.bin.dir}" compress="false">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Main-class" value="com.hyzcoding.tankGame.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
