@@ -20,7 +20,8 @@ class Tank{
 	//设置长度
 	int height = 30;
 	char direction;
-	boolean type;//false敌人，true玩家
+	// false敌人，true玩家
+	boolean type;
 	boolean isLive;
 	Vector<Bullet> bls=new Vector<Bullet>();
 	public Tank(){}
@@ -71,25 +72,19 @@ class Tank{
 		Bullet bl = null;
 		switch(direction){
 		case 'U':
-			
 				bl = new Bullet(x+width/2-2,y,direction);
-			
 			break;
 		case 'R':
-			
 				bl = new Bullet(x+height,y+width/2-2,direction);
-			
 			break;
 		case 'D':
-			
 				bl = new Bullet(x+width/2-2,y+height,direction);
-			
 			break;
 		case 'L':
-			
 				bl = new Bullet(x,y+width/2-2,direction);
-			
 			break;
+		default:
+			break ;
 		}
 		bls.add(bl);
 		Thread tbl = new Thread(bl);

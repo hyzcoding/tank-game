@@ -8,92 +8,98 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/*
- * ×÷Õß£ººúÓĞÖ¾
- * ¹¦ÄÜ£ºÊµÏÖÌ¹¿Ë´óÕ½
- * ÈÕÆÚ£º2018.6.7
- * °æ±¾£º2.0
+/**
+ * tank-game
+ * @author hyzcoding
+ * @date 2018/06/07
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class TankGame2_0 extends JFrame implements Runnable{
 
-	
+
+
 	/**
-	 * ¹¹½¨´°Ìå£¬Ìí¼Ó×é¼ş
-	 * ×é¼ş1£¬GamePanel
-	 * ×é¼ş2£¬ScorePanel--ÏÔÊ¾·ÖÊı
-	 * ×é¼ş3£¬LifePanel--ÏÔÊ¾ÉúÃüÖµ
-	 * ×é¼ş4£¬MenuBar--²Ëµ¥Ìõ,Ñ¡Ôñ¼ÌĞøÓÎÏ·»ò¿ªÊ¼ĞÂÓÎÏ·
+	 * æ„å»ºçª—ä½“ï¼Œæ·»åŠ ç»„ä»¶
+	 * ç»„ä»¶1ï¼ŒGamePanel
+	 * ç»„ä»¶2ï¼ŒScorePanel--æ˜¾ç¤ºåˆ†æ•°
+	 * ç»„ä»¶3ï¼ŒLifePanel--æ˜¾ç¤ºç”Ÿå‘½å€¼
+	 * ç»„ä»¶4ï¼ŒMenuBar--èœå•æ¡,é€‰æ‹©ç»§ç»­æ¸¸æˆæˆ–å¼€å§‹æ–°æ¸¸æˆ
 	 */
 	private static final long serialVersionUID = 2L;
-	
+
 	/**
-	 * welcome --»¶Ó­£¬Ñ¡Ôñ½çÃæ
+	 * welcome --æ¬¢è¿ï¼Œé€‰æ‹©ç•Œé¢
 	 */
 	WelcomePanel welcomePanel = null;
 	/**
-	 * 
+	 *
 	 */
 	StagePanel stagePanel = null;
 	/**
-	 * GamePanel--Ì¹¿ËÔËĞĞ½çÃæ
+	 * GamePanel--å¦å…‹è¿è¡Œç•Œé¢
 	 */
 	GamePanel gamePanel=null;
 	/**
-	 * scorePanel --³É¼¨½çÃæ£¬ÒÔ¼°ÆäÖĞ°üº¬µÄ³É¼¨Êı¾İ
+	 * scorePanel --æˆç»©ç•Œé¢ï¼Œä»¥åŠå…¶ä¸­åŒ…å«çš„æˆç»©æ•°æ®
 	 */
 	ScorePanel scorePanel = null;
 	Thread twp = null;
-	
+
 	Thread tstp = null;
-	
+
 	Thread tgp = null;
-	
-	//
-	Thread tsp =null;
-	
+
 	/**
-	 * 
+	 *
+	 */
+	Thread tsp =null;
+
+	/**
+	 *
 	 */
 	JLabel boundsL = null;
-	//
+	/**
+	 *
+	 */
 	JLabel boundsU = null;
-	
+
 	JLabel boundsD = null;
 	/**
-	 * 
-	 * @param args
+	 *
+	 * @param args å¯åŠ¨å‚æ•°
 	 */
-	
+
 	public static void main(String[] args) {
-		
+
 		TankGame2_0 tankgame = new TankGame2_0();
 		Thread ttg = new Thread(tankgame);
 		ttg.start();
 	}
 	/**
-	 * ¹¹Ôìº¯Êı£¬ĞÂ½¨×é¼ş£¬Ïß³Ì
+	 * æ„é€ å‡½æ•°ï¼Œæ–°å»ºç»„ä»¶ï¼Œçº¿ç¨‹
 	 */
 	public TankGame2_0(){
 
 	}
 	public void addwelPanel(){
 		welcomePanel = new WelcomePanel();
-		
+
 		this.setResizable(false);
-		
+
 		this.add(welcomePanel);
 		this.addKeyListener(welcomePanel);
 		this.setTitle("Tank Game");
 		this.setSize(800,600);
 		setProperties();
-		
-		//ĞÂ½¨²¢Æô¶¯welcomePanelÏß³Ìtgp¡£
+
+		//æ–°å»ºå¹¶å¯åŠ¨welcomePanelçº¿ç¨‹tgpã€‚
 		twp = new Thread(welcomePanel);
 		twp.start();
 	}
-	
+
 	public void addstagePanel(){
-		
+
 		stagePanel = new StagePanel();
 		this.remove(welcomePanel);
 		this.welcomePanel = null;
@@ -101,17 +107,17 @@ public class TankGame2_0 extends JFrame implements Runnable{
 		setProperties();
 		tstp = new Thread(stagePanel);
 		tstp.start();
-		//ÒÆ³ıwelcomeÃæ°å
+		//ç§»é™¤welcomeé¢æ¿
 		AePlayWave apw=new AePlayWave("voice/start.wav");
 		apw.start();
 	}
-	
+
 	public void addgasPanel(){
-		
+
 		gamePanel = new GamePanel();
-		
+
 		scorePanel = new ScorePanel();
-		
+
 		boundsL = new JLabel();
 		boundsL.setOpaque(true);
 		boundsL.setBackground(Color.gray);
@@ -121,12 +127,12 @@ public class TankGame2_0 extends JFrame implements Runnable{
 		boundsD = new JLabel();
 		boundsD.setOpaque(true);
 		boundsD.setBackground(Color.gray);
-		//Ìí¼ÓAction
+		//ç§»é™¤welcomeé¢æ¿
 		this.addKeyListener(gamePanel);
-		//ÒÆ³ıstagePanelÃæ°å
+		//ç§»é™¤welcomeé¢æ¿
 		this.remove(this.stagePanel);
 		//
-		
+
 		this.add(boundsL,BorderLayout.WEST);
 		this.add(boundsU,BorderLayout.NORTH);
 		this.add(boundsD,BorderLayout.SOUTH);
@@ -137,26 +143,26 @@ public class TankGame2_0 extends JFrame implements Runnable{
 		boundsL.setPreferredSize(new Dimension(20,600));
 		boundsU.setPreferredSize(new Dimension(500,20));
 		boundsD.setPreferredSize(new Dimension(500,20));
-		
-		//ĞÂ½¨²¢Æô¶¯gamePanelÏß³Ìtgp¡£
+
+		//ç§»é™¤welcomeé¢æ¿
 		tgp = new Thread(gamePanel);
 		tgp.start();
 		//
 		tsp = new Thread(scorePanel);
 		tsp.start();
-		
+
 		setProperties();
 	}
-	
+
 	public void setProperties(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-	
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		// å¯åŠ¨æ¬¢è¿é¡µ
 		addwelPanel();
 		while(true){
 			if(gamePanel == null&&scorePanel == null){
@@ -165,7 +171,7 @@ public class TankGame2_0 extends JFrame implements Runnable{
 				}else if(welcomePanel == null && !tstp.isAlive()){
 					addgasPanel();
 				}
-				
+
 			}
 			if(gamePanel != null&&scorePanel != null){
 				scorePanel.etNum = gamePanel.ets.size();
