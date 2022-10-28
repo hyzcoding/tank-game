@@ -1,4 +1,6 @@
-package com.tankgame2_0.hyz;
+package main.cn.hyzcoding.tankgame;
+
+import main.cn.hyzcoding.tankgame.entity.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +17,7 @@ import javax.swing.JLabel;
  * @version 2.0.0
  * @since 1.0.0
  */
-public class TankGame2_0 extends JFrame implements Runnable{
+public class TankGame extends JFrame implements Runnable{
 
 
 
