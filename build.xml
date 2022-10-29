@@ -37,19 +37,19 @@
         </first>
         <copy todir="${project.bin.dir}">
             <fileset dir="${project.src.dir}/resources">
-                <exclude name="**/*.java"/>
+                <exclude name="**/*.java"></exclude>
             </fileset>
         </copy>
     </target>
     <target name="run" depends="compile" description="run main">
-        <java classpath="${project.bin.dir}" classname="com.hyzcoding.tankgame.TankGame"/>
+        <java classpath="${project.bin.dir}" classname="com.hyzcoding.tankGame.Main"></java>
     </target>
     <!-- 二.打包 -->
     <target name="package">
         <jar destfile="${jar.name}" basedir="${project.bin.dir}" compress="false">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
-                <attribute name="Main-class" value="com.hyzcoding.tankgame.TankGame"/>
+                <attribute name="Main-class" value="com.hyzcoding.tankGame.Main"/>
             </manifest>
         </jar>
     </target>
