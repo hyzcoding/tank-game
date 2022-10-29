@@ -37,19 +37,31 @@
         </first>
         <copy todir="${project.bin.dir}">
             <fileset dir="${project.src.dir}/resources">
+<<<<<<< HEAD
+                <exclude name="**/*.java"/>
+=======
                 <exclude name="**/*.java"></exclude>
+>>>>>>> 86fa963439e3af7f6ed462981b68412650588c48
             </fileset>
         </copy>
     </target>
     <target name="run" depends="compile" description="run main">
+<<<<<<< HEAD
+        <java classpath="${project.bin.dir}" classname="com.hyzcoding.tankgame.TankGame"/>
+=======
         <java classpath="${project.bin.dir}" classname="com.hyzcoding.tankGame.Main"></java>
+>>>>>>> 86fa963439e3af7f6ed462981b68412650588c48
     </target>
     <!-- 二.打包 -->
     <target name="package">
         <jar destfile="${jar.name}" basedir="${project.bin.dir}" compress="false">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
+<<<<<<< HEAD
+                <attribute name="Main-class" value="com.hyzcoding.tankgame.TankGame"/>
+=======
                 <attribute name="Main-class" value="com.hyzcoding.tankGame.Main"/>
+>>>>>>> 86fa963439e3af7f6ed462981b68412650588c48
             </manifest>
         </jar>
     </target>
