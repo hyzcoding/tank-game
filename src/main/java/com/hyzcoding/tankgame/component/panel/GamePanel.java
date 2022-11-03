@@ -2,15 +2,19 @@ package com.hyzcoding.tankgame.component.panel;
 
 
 import com.hyzcoding.tankgame.TankGame;
+import com.hyzcoding.tankgame.component.FileUtils;
 import com.hyzcoding.tankgame.consts.FilePathConst;
-import com.hyzcoding.tankgame.entity.role.*;
-import com.hyzcoding.tankgame.entity.role.*;
+import com.hyzcoding.tankgame.entity.role.Blast;
+import com.hyzcoding.tankgame.entity.role.Born;
+import com.hyzcoding.tankgame.entity.role.EnemyTank;
+import com.hyzcoding.tankgame.entity.role.PlayerTank;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Objects;
+import java.io.IOException;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -67,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     Image baseFine;
     CountDownLatch latch;
 
-    public GamePanel(CountDownLatch latch) {
+    public GamePanel(CountDownLatch latch)   {
         this.latch = latch;
         //初始化玩家坦克
         p1 = new PlayerTank(350, 470, 'U', true, true);
@@ -84,37 +88,42 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             tet.start();
             ets.add(et);
         }
+        try {
+
 
         //导入图片
         //导入玩家坦克图片
-        image_p1tankU = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_PLAYER_U)).getPath());
-        image_p1tankR = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_PLAYER_R)).getPath());
-        image_p1tankD = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_PLAYER_D)).getPath());
-        image_p1tankL = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_PLAYER_L)).getPath());
+        image_p1tankU = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_U));
+        image_p1tankR = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_R));
+        image_p1tankD = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_D));
+        image_p1tankL = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_L));
         //导入敌人坦克图片
-        enemy3U = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_ENEMY_U)).getPath());
-        enemy3R = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_ENEMY_R)).getPath());
-        enemy3D = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_ENEMY_D)).getPath());
-        enemy3L = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_ENEMY_L)).getPath());
+        enemy3U = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_U));
+        enemy3R = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_R));
+        enemy3D = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_D));
+        enemy3L = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_L));
         //出生图片
-        born1 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_1)).getPath());
-        born2 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_2)).getPath());
-        born3 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_3)).getPath());
-        born4 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_4)).getPath());
+        born1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_1));
+        born2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_2));
+        born3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_3));
+        born4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_4));
 
-        bornP1 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_P1)).getPath());
-        bornP2 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BORN_P2)).getPath());
+        bornP1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P1));
+        bornP2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P2));
         //爆炸图片
-        blast1 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_1)).getPath());
-        blast2 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_2)).getPath());
-        blast3 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_3)).getPath());
-        blast4 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_4)).getPath());
-        blast5 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_5)).getPath());
-        blast6 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_6)).getPath());
-        blast7 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_7)).getPath());
-        blast8 = Toolkit.getDefaultToolkit().createImage(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BLAST_8)).getPath());
+        blast1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_1));
+        blast2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_2));
+        blast3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_3));
+        blast4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_4));
+        blast5 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_5));
+        blast6 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_6));
+        blast7 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_7));
+        blast8 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_8));
         //障碍物图片
-
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
 
     }
 
@@ -134,21 +143,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //绘制玩家坦克
         if (p1.isLive) {
             this.drawTank(p1.x, p1.y, p1.width, p1.height, p1.direction, g, p1.type);
-            for (int i = 0; i < p1.bls.size(); i++) {
-                Bullet p1bl = p1.bls.get(i);
-                if (p1bl.isLive) {
-                    //绘制子弹
-                    g.setColor(Color.YELLOW);
-                    g.fillRect(p1bl.x, p1bl.y, 4, 4);
-                } else {
-                    // TODO
-                    p1.bls.remove(i);
-                }
-            }
+            p1.bls.removeIf(bullet -> !bullet.isLive);
+            p1.bls.forEach(bullet -> {
+                g.setColor(Color.YELLOW);
+                g.fillRect(bullet.x, bullet.y, 4, 4);
+            });
+
         }
         //绘制出生
-        for (int i = 0; i < borns.size(); i++) {
-            Born born = borns.get(i);
+        borns.forEach(born -> {
             if (born.times % 4 == 0) {
                 g.drawImage(born1, born.x, born.y, 30, 40, this);
             } else if (born.times % 4 == 1) {
@@ -159,12 +162,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 g.drawImage(born4, born.x, born.y, 30, 40, this);
             }
             born.lifeDown();
+        });
+        borns.removeIf(born -> born.times<0);
 
-            if (born.times == 0) {
-                borns.remove(born);
-            }
-        }
-        //
         if (bornP.isLive) {
             if (bornP.times % 2 == 0) {
                 g.drawImage(bornP1, p1.x - 5, p1.y + 10, 40, 30, this);
@@ -238,34 +238,34 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     //创建绘制坦克方法--（敌人和玩家坦克）false敌人，true玩家
-    public void drawTank(int x, int y, int width, int height, char direction, Graphics g, boolean type) {
+    public void drawTank(int x, int y, int w, int h, char direction, Graphics g, boolean type) {
         switch (direction) {
             case 'U':
                 if (type) {
-                    g.drawImage(image_p1tankU, x, y, width, height, this);
+                    g.drawImage(image_p1tankU, x, y, w, h, this);
                 } else {
-                    g.drawImage(enemy3U, x, y, width, height, this);
+                    g.drawImage(enemy3U, x, y, w, h, this);
                 }
                 break;
             case 'R':
                 if (type) {
-                    g.drawImage(image_p1tankR, x, y, height, width, this);
+                    g.drawImage(image_p1tankR, x, y, h, w, this);
                 } else {
-                    g.drawImage(enemy3R, x, y, height, width, this);
+                    g.drawImage(enemy3R, x, y, h, w, this);
                 }
                 break;
             case 'D':
                 if (type) {
-                    g.drawImage(image_p1tankD, x, y, width, height, this);
+                    g.drawImage(image_p1tankD, x, y, w, h, this);
                 } else {
-                    g.drawImage(enemy3D, x, y, width, height, this);
+                    g.drawImage(enemy3D, x, y, w, h, this);
                 }
                 break;
             case 'L':
                 if (type) {
-                    g.drawImage(image_p1tankL, x, y, height, width, this);
+                    g.drawImage(image_p1tankL, x, y, h, w, this);
                 } else {
-                    g.drawImage(enemy3L, x, y, height, width, this);
+                    g.drawImage(enemy3L, x, y, h, w, this);
                 }
                 break;
         }
@@ -275,13 +275,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     @Override
     public synchronized void run() {
-        // TODO Auto-generated method stub
         do {
             try {
                 //设置休眠时间
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
+                System.err.println(e.getMessage());
                 e.printStackTrace();
             }
             //重绘GamePanel
@@ -297,13 +296,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
             if (p1.direction != 'U') p1.move('U');
             p1.move('U');
@@ -323,8 +320,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-
     }
 }
 

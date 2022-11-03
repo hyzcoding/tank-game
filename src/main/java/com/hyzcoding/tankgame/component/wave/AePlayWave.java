@@ -1,8 +1,9 @@
 package com.hyzcoding.tankgame.component.wave;
 
+import com.hyzcoding.tankgame.component.FileUtils;
+
 import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -11,18 +12,17 @@ import java.util.concurrent.CountDownLatch;
  * @since 1.0
  **/
 public class AePlayWave extends Thread {
-    private final String fileName;
+    private final String name;
     CountDownLatch latch;
-    public AePlayWave(String fileName, CountDownLatch latch  ) {
-        this.fileName = fileName;
+    public AePlayWave(String name, CountDownLatch latch  ) {
+        this.name = name;
         this.latch = latch;
     }
 
     public void run() {
-        File voiceFile = new File(fileName);
         AudioInputStream ais;
         try {
-            ais = AudioSystem.getAudioInputStream(voiceFile);
+            ais = AudioSystem.getAudioInputStream(new BufferedInputStream(FileUtils.getFilePath(name)));
             assert ais != null;
             AudioFormat afm = ais.getFormat();
             SourceDataLine auline;
