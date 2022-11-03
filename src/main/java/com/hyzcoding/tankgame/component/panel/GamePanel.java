@@ -20,12 +20,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 游戏面板
  * @author huyouzhi
- * @version 1.0
- * @since 1.0
+ * @version 2.0
+ * @since 2.0
  **/
 public class GamePanel extends JPanel implements Runnable, KeyListener {
-    //版本号2.0
     private static final long serialVersionUID = 2L;
     //创建敌人坦克vector数组+设置初始敌人坦克数量
     public Vector<EnemyTank> ets = new Vector<>();
@@ -66,12 +66,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     Image blast6;
     Image blast7;
     Image blast8;
-    //
     @SuppressWarnings("unused")
     Image baseFine;
     CountDownLatch latch;
 
-    public GamePanel(CountDownLatch latch)   {
+    public GamePanel(CountDownLatch latch) {
         this.latch = latch;
         //初始化玩家坦克
         p1 = new PlayerTank(350, 470, 'U', true, true);
@@ -89,45 +88,45 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             ets.add(et);
         }
         try {
+            //导入图片
+            //导入玩家坦克图片
+            image_p1tankU = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_U));
+            image_p1tankR = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_R));
+            image_p1tankD = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_D));
+            image_p1tankL = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_L));
+            //导入敌人坦克图片
+            enemy3U = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_U));
+            enemy3R = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_R));
+            enemy3D = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_D));
+            enemy3L = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_L));
+            //出生图片
+            born1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_1));
+            born2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_2));
+            born3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_3));
+            born4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_4));
 
-
-        //导入图片
-        //导入玩家坦克图片
-        image_p1tankU = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_U));
-        image_p1tankR = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_R));
-        image_p1tankD = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_D));
-        image_p1tankL = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_PLAYER_L));
-        //导入敌人坦克图片
-        enemy3U = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_U));
-        enemy3R = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_R));
-        enemy3D = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_D));
-        enemy3L = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_ENEMY_L));
-        //出生图片
-        born1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_1));
-        born2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_2));
-        born3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_3));
-        born4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_4));
-
-        bornP1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P1));
-        bornP2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P2));
-        //爆炸图片
-        blast1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_1));
-        blast2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_2));
-        blast3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_3));
-        blast4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_4));
-        blast5 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_5));
-        blast6 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_6));
-        blast7 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_7));
-        blast8 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_8));
-        //障碍物图片
-        }catch (IOException e){
+            bornP1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P1));
+            bornP2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BORN_P2));
+            //爆炸图片
+            blast1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_1));
+            blast2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_2));
+            blast3 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_3));
+            blast4 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_4));
+            blast5 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_5));
+            blast6 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_6));
+            blast7 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_7));
+            blast8 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BLAST_8));
+            //障碍物图片
+        } catch (IOException e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
 
     }
 
-    //碰撞
+    /**
+     * 碰撞
+     */
     public void collideEt() {
         for (int i = 0; i < ets.size(); i++) {
             for (int j = 0; j < i; j++) {
@@ -136,7 +135,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
     }
 
-    //绘制图像
+    /**
+     * 绘制图像
+     * @param g 图像
+     */
     public void paint(Graphics g) {
         super.paint(g);
 
@@ -163,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
             born.lifeDown();
         });
-        borns.removeIf(born -> born.times<0);
+        borns.removeIf(born -> born.times < 0);
 
         if (bornP.isLive) {
             if (bornP.times % 2 == 0) {
@@ -204,8 +206,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     /**
      * 绘制爆炸
+     *
      * @param blasts 爆炸位置序列
-     * @param g 绘图
+     * @param g      绘图
      */
     public void drawBlast(Vector<Blast> blasts, Graphics g) {
         for (int i = 0; i < blasts.size(); i++) {
@@ -237,7 +240,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
     }
 
-    //创建绘制坦克方法--（敌人和玩家坦克）false敌人，true玩家
+    /**
+     * 创建绘制坦克方法 （敌人和玩家坦克）
+     *
+     * @param x         x方向
+     * @param y         y方向
+     * @param w         宽
+     * @param h         高
+     * @param direction 方向
+     * @param g         图像
+     * @param type      false敌人，true玩家
+     */
     public void drawTank(int x, int y, int w, int h, char direction, Graphics g, boolean type) {
         switch (direction) {
             case 'U':
