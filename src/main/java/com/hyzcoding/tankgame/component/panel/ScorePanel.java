@@ -1,6 +1,7 @@
 package com.hyzcoding.tankgame.component.panel;
 
 import com.hyzcoding.tankgame.TankGame;
+import com.hyzcoding.tankgame.component.FileUtils;
 import com.hyzcoding.tankgame.consts.FilePathConst;
 import com.hyzcoding.tankgame.consts.FontConst;
 
@@ -41,11 +42,11 @@ public class ScorePanel extends JPanel implements Runnable {
     public ScorePanel(CountDownLatch latch) {
         this.latch = latch;
         try {
-            etIcon = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.ICON_ENEMY_TANK)).getPath()));
-            ptIcon = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.ICON_PLAYER_TANK)).getPath()));
-            flag = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.ICON_SCORE_FLAG)).getPath()));
-            p1 = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.ICON_SCORE_P1)).getPath()));
-            p2 = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.ICON_SCORE_P2)).getPath()));
+            etIcon = ImageIO.read(FileUtils.getFilePath(FilePathConst.ICON_ENEMY_TANK));
+            ptIcon = ImageIO.read(FileUtils.getFilePath(FilePathConst.ICON_PLAYER_TANK));
+            flag = ImageIO.read(FileUtils.getFilePath(FilePathConst.ICON_SCORE_FLAG));
+            p1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.ICON_SCORE_P1));
+            p2 = ImageIO.read(FileUtils.getFilePath(FilePathConst.ICON_SCORE_P2));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

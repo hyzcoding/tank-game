@@ -1,5 +1,7 @@
 package com.hyzcoding.tankgame.component.panel;
 
+import com.hyzcoding.tankgame.TankGame;
+import com.hyzcoding.tankgame.component.FileUtils;
 import com.hyzcoding.tankgame.consts.FilePathConst;
 
 import javax.imageio.ImageIO;
@@ -39,7 +41,7 @@ public class WelcomePanel extends JPanel implements Runnable, KeyListener {
     int shine2 = 10;
     //
     Image battlecity1 = null;
-    Image Dteam = null;
+    Image dteam = null;
     Image selectP1 = null;
 
     //
@@ -47,9 +49,9 @@ public class WelcomePanel extends JPanel implements Runnable, KeyListener {
 
         this.setBackground(Color.black);
         try {
-            battlecity1 = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_BATTLE_CITY)).getPath()));
-            Dteam = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_D_TEAM)).getPath()));
-            selectP1 = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getResource(FilePathConst.IMG_SELECT_P1)).getPath()));
+            battlecity1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_BATTLE_CITY));
+            dteam = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_D_TEAM));
+            selectP1 = ImageIO.read(FileUtils.getFilePath(FilePathConst.IMG_SELECT_P1));
         } catch (IOException e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -63,7 +65,7 @@ public class WelcomePanel extends JPanel implements Runnable, KeyListener {
         Font f = new Font(FONT_CONSOLE, Font.PLAIN, 22);
         g.drawImage(battlecity1, 120, 50 + time, 500, 200, this);
         g.drawImage(selectP1, 280, 284 + time + cursor, 20, 20, this);
-        g.drawImage(Dteam, 320, 380 + time, 120, 30, this);
+        g.drawImage(dteam, 320, 380 + time, 120, 30, this);
         g.setColor(Color.white);
         //
         g.setFont(f);

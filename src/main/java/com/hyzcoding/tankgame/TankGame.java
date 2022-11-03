@@ -1,5 +1,6 @@
 package com.hyzcoding.tankgame;
 
+import com.hyzcoding.tankgame.component.FileUtils;
 import com.hyzcoding.tankgame.component.panel.GamePanel;
 import com.hyzcoding.tankgame.component.panel.ScorePanel;
 import com.hyzcoding.tankgame.component.panel.StagePanel;
@@ -123,7 +124,7 @@ public class TankGame extends JFrame implements Runnable {
         setProperties();
         tstp = new Thread(stagePanel);
         //移除welcome面板
-        AePlayWave apw = new AePlayWave(Objects.requireNonNull(this.getClass().getResource(FilePathConst.WAV_START)).getPath(), latch);
+        AePlayWave apw = new AePlayWave( FilePathConst.WAV_START, latch);
         tstp.start();
         apw.start();
         latch.await();
